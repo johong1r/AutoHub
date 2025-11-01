@@ -1,0 +1,70 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+</head>
+<body>
+    <header>
+        <div class="headerr">
+            <div class="right">
+                <a class="logo" href=""><img src="{% static 'images/AutoHub.jpg' %}" alt=""></a>
+                <a class="menu" href=""><img src="{% static 'images/menu.svg' %}" alt=""></a>
+                <a href="">Для бизнеса</a>
+            </div>
+            <div class="left">
+                <a href="">Вход</a>
+                <a href="">Регистрация</a>
+                <a class="btn" href="">Разместить обьявление</a>
+            </div>
+        </div>
+    </header>
+
+        <section class="firstSec">
+            <div class="search1">
+                <form action="{% url 'home' %}" method="GET">
+                    <input type="text" placeholder="Поиск машин" name="search" value="{{ search }}">
+                    <button type="submit">
+                        <img src="{% static 'images/search (1).svg' %}" alt="Поиск">
+                    </button>
+                </form>
+            </div>
+        </section>
+
+    <div class="cars_list">
+        {% for car in cars %}
+            <div class="car_card">
+                <div class="left">
+                    <img src="{{ car.picture.url }}" alt="">
+                </div>
+                <div class="centre">
+                    <div class="top">
+                        <p class="sale">{{ car.sale.name }}</p>
+                        <h3>{{ car.name }}</h3>
+                        <h4>{{ car.price }} $</h4>
+                    </div>
+                    <div class="bottom">
+                        <p>{{ car.join_date }}</p>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="top">
+                        <a href=""><img src="{% static 'images/heart (1).svg' %}" alt=""></a>
+                        <a href=""><img src="{% static 'images/mail (1).svg' %}" alt=""></a>
+                    </div>
+                    <div class="bottom">
+                        <a href=""><img src="{% static 'images/phone (1).svg' %}" alt=""></a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>Ничего не найдено</p>
+        {% endfor %}
+    </div>
+
+</body>
+</html>

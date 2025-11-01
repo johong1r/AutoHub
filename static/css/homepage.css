@@ -1,0 +1,164 @@
+ * {
+     padding: 0;
+     margin: 0;
+     text-decoration: none;
+     list-style: none;
+     box-sizing: border-box;
+ }
+
+body {
+    background-color: #F8F8F8;
+    padding-top: 70px;
+}
+
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #2C3E50;
+    z-index: 1000;
+}
+
+
+.headerr {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 850px;
+
+    .right {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        .logo {
+            img {
+                max-width: 100px;
+                width: 100%;
+            }
+        }
+
+        .menu {
+            img {
+                max-width: 30px;
+                width: 100%;
+            }
+        }
+
+        a {
+            text-decoration: none;
+            color: #F8F8F8;
+        }
+    }
+
+    .left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        a {
+            text-decoration: none;
+            color: #F8F8F8;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #F8F8F8;
+            border: none;
+            border-radius: 10px;
+            color: #2C3E50;
+        }
+    }
+}
+
+
+.firstSec {
+
+    .search1 {
+        display: flex;
+        align-items: center;
+
+        input {
+            padding: 20px 500px;
+            color: #F8F8F8;
+            background-color: #2C3E50;
+            border: none;
+            border-radius: 10px;
+        }
+
+        input::placeholder {
+            color: #F8F8F8;
+        }
+
+        input:focus {
+            outline: none;
+        }
+
+        button {
+            border: none;
+            background-color: #F8F8F8;
+            cursor: pointer;
+        }
+    }
+}
+
+.cars_list {
+
+    .car_card {
+        display: flex;
+        border: lightgrey 1px solid;
+        max-width: 1150px;
+        width: 100%;
+        border-radius: 10px;
+        
+    }
+
+    .left {
+        margin-right: 20px;
+        img {
+            width: 250px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            display: block;
+
+        }
+    }
+
+    .centre{
+        
+        .top{
+            
+            .sale{
+                margin-top: 5px;
+                color: grey;
+            }
+
+            h3{
+                margin-top: 5px;
+                color: rgb(70, 70, 236);
+            }
+
+            h4{
+                margin-top: 5px;
+                font-size: 22px;
+            }
+        }
+
+        .bottom{
+            p{
+                margin-top: 70px;
+                color: grey;
+            }
+        }
+    }
+
+    .right{
+        .top{
+            
+        }
+    }
+}
