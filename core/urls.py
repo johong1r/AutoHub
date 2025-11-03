@@ -21,7 +21,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('autohub/', include('autohub.urls'), name="autohub")
+    path('', include('autohub.urls'), name="autohub"),
+    path('custom_admin/', include('custom_admin.urls'), name="custom_admin")
 ]
 
 

@@ -6,62 +6,409 @@
      box-sizing: border-box;
  }
 
-body {
-    background-color: #F8F8F8;
-    padding-top: 70px;
-}
+ .container {
+     max-width: 1440px;
+     width: 100%;
+     margin: 0 auto;
+     padding: 0;
+ }
+
+ body {
+     background-color: #F8F8F8;
+     padding-top: 70px;
+ }
 
 
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: #2C3E50;
-    z-index: 1000;
-}
+ header {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     background-color: #2C3E50;
+     z-index: 1000;
+ }
 
 
-.headerr {
+ .headerr {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     gap: 850px;
+
+     .right {
+         display: flex;
+         align-items: center;
+         gap: 20px;
+
+         .logo {
+             img {
+                 max-width: 100px;
+                 width: 100%;
+             }
+         }
+
+         .menu {
+             img {
+                 max-width: 30px;
+                 width: 100%;
+             }
+         }
+
+         a {
+             text-decoration: none;
+             color: #F8F8F8;
+         }
+     }
+
+     .left {
+         display: flex;
+         align-items: center;
+         gap: 20px;
+
+         a {
+             text-decoration: none;
+             color: #F8F8F8;
+         }
+
+         .btn {
+             text-decoration: none;
+             padding: 10px 20px;
+             background-color: #F8F8F8;
+             border: none;
+             border-radius: 10px;
+             color: #2C3E50;
+         }
+     }
+ }
+
+
+ .firstSec {
+     background-color: #dfdfdf;
+     padding: 20px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     gap: 30px;
+     margin-top: -10px;
+
+     .choose {
+         select {
+             padding: 20px 100px;
+             color: #F8F8F8;
+             background-color: #2C3E50;
+             border: none;
+             border-radius: 10px;
+         }
+
+         select::placeholder {
+             color: #F8F8F8;
+         }
+
+         select:focus {
+             outline: none;
+         }
+     }
+
+     .search1 {
+         display: flex;
+         align-items: center;
+
+         input {
+             padding: 20px 480px;
+             color: #F8F8F8;
+             background-color: #2C3E50;
+             border: none;
+             border-radius: 10px;
+         }
+
+         input::placeholder {
+             color: #F8F8F8;
+         }
+
+         input:focus {
+             outline: none;
+         }
+
+         button {
+             border: none;
+             background-color: #dfdfdf;
+             cursor: pointer;
+         }
+     }
+ }
+
+
+
+
+ .cars_list {
+     display: flex;
+     justify-content: center;
+     margin: 30px 0;
+     
+    
+     
+
+
+     .filter {
+        border: lightgray 1px solid;
+        border-radius: 15px;
+        padding: 15px;
+        background-color: #F8F8F8;
+         .filter-container {
+             max-width: 300px;
+         }
+
+         .filter-section {
+             margin-bottom: 20px;
+             label{
+                color: #2C3E50;
+             }
+             select{
+                background-color: #2C3E50;
+                color: #F8F8F8;
+                border: none;
+                border-radius: 10px;
+             }
+             span{
+                color: #2C3E50;
+             }
+
+         }
+
+         .filter-select {
+             width: 100%;
+             padding: 8px;
+             margin-top: 5px;
+         }
+
+         .range-inputs {
+             display: flex;
+             gap: 10px;
+             margin-top: 5px;
+         }
+
+         .range-inputs input {
+             width: 50%;
+             padding: 8px;
+             background-color: #2C3E50;
+             color: #F8F8F8;
+             border: none;
+             border-radius: 10px;
+         }
+
+         .range-inputs input::placeholder {
+             color: #F8F8F8;
+         }
+
+         .price-currency {
+             display: flex;
+             justify-content: space-between;
+             align-items: center;
+         }
+
+         .currency-switcher {
+             display: flex;
+             border:none;
+             border-radius: 10px;
+             gap: 5px;
+         }
+
+         .currency {
+             padding: 4px 8px;
+             border: 1px solid lightgray;
+             background-color: #F8F8F8;
+             color: #2C3E50;
+             cursor: pointer;
+         }
+
+         .currency:hover{
+            background-color: #2C3E50;
+            color: #F8F8F8;
+         }
+
+         
+
+         .filter-actions {
+             display: flex;
+             flex-direction: column;
+             gap: 10px;
+         }
+
+         .show-btn,
+         .reset-btn {
+             padding: 10px;
+             cursor: pointer;
+         }
+
+          .show-btn {
+             padding: 10px 8px;
+             border: 1px solid lightgray;
+             background-color: #F8F8F8;
+             color: #2C3E50;
+             cursor: pointer;
+         }
+
+         .show-btn:hover{
+            background-color: #2C3E50;
+            color: #F8F8F8;
+         }
+
+
+        .reset-btn {
+             padding: 10px 8px;
+             border: 1px solid lightgray;
+             background-color: #F8F8F8;
+             color: #2C3E50;
+             cursor: pointer;
+         }
+
+         .reset-btn:hover{
+            background-color: #2C3E50;
+            color: #F8F8F8;
+         }
+     }
+
+
+     .car_list1 {
+         width: 100%;
+         max-width: 1200px;
+         margin: 0 auto;
+
+
+         .car_card {
+             display: flex;
+             border: lightgrey 1px solid;
+             max-width: 1150px;
+             width: 100%;
+             border-radius: 10px;
+             margin-left: 20px;
+             margin-bottom: 30px;
+
+
+             .left {
+                 margin-right: 20px;
+
+                 img {
+                     width: 250px;
+                     height: 180px;
+                     object-fit: cover;
+                     border-radius: 10px;
+                     display: block;
+
+                 }
+             }
+
+             .title {
+                 display: flex;
+                 justify-content: space-between;
+                 align-items: flex-start;
+                 width: 100%;
+
+                 .centre {
+                     flex: 1;
+                     display: flex;
+                     flex-direction: column;
+
+                     .top {
+
+                         .sale {
+                             margin-top: 5px;
+                             color: grey;
+                         }
+
+                         a {
+                             h3 {
+                                 margin-top: 5px;
+                                 color: rgb(70, 70, 236);
+                             }
+                         }
+
+                         h4 {
+                             margin-top: 5px;
+                             font-size: 22px;
+                         }
+                     }
+
+                     .bottom {
+                         p {
+                             margin-top: 70px;
+                             color: grey;
+                         }
+                     }
+                 }
+
+                 .right {
+                     display: flex;
+                     flex-direction: column;
+                     align-items: flex-end;
+                     gap: 80px;
+
+                     .top {
+                         display: flex;
+                         gap: 10px;
+                         margin: 10px;
+
+
+                     }
+
+                     .bottom {
+                         margin-top: 15px;
+                         margin-right: 10px;
+
+                     }
+                 }
+             }
+         }
+     }
+ }
+
+ .footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 850px;
+    gap: 200px; 
+    padding: 50px;
+    background-color: #2C3E50;
+    color: #F8F8F8;
 
-    .right {
+    .footer-left, .footer-center, .footer-right {
         display: flex;
         align-items: center;
         gap: 20px;
+    }
 
-        .logo {
-            img {
-                max-width: 100px;
-                width: 100%;
-            }
+    .footer-left {
+        flex-direction: column;
+        text-align: left;
+        
+        align-items: flex-start;
+
+        .logo img {
+            max-width: 100px;
+            width: 100%;
         }
 
-        .menu {
-            img {
-                max-width: 30px;
-                width: 100%;
-            }
-        }
-
-        a {
-            text-decoration: none;
+        p {
+            margin-top: 10px;
+            font-size: 14px;
             color: #F8F8F8;
         }
     }
 
-    .left {
-        display: flex;
-        align-items: center;
-        gap: 20px;
+    .footer-center {
+        flex-direction: column;
+        align-items: flex-start;
 
         a {
             text-decoration: none;
             color: #F8F8F8;
+            margin-bottom: 5px;
         }
+    }
+
+    .footer-right {
+        flex-direction: row;
+        align-items: center;
 
         .btn {
             text-decoration: none;
@@ -70,95 +417,12 @@ header {
             border: none;
             border-radius: 10px;
             color: #2C3E50;
-        }
-    }
-}
-
-
-.firstSec {
-
-    .search1 {
-        display: flex;
-        align-items: center;
-
-        input {
-            padding: 20px 500px;
-            color: #F8F8F8;
-            background-color: #2C3E50;
-            border: none;
-            border-radius: 10px;
+            margin-right: 15px;
         }
 
-        input::placeholder {
-            color: #F8F8F8;
-        }
-
-        input:focus {
-            outline: none;
-        }
-
-        button {
-            border: none;
-            background-color: #F8F8F8;
-            cursor: pointer;
-        }
-    }
-}
-
-.cars_list {
-
-    .car_card {
-        display: flex;
-        border: lightgrey 1px solid;
-        max-width: 1150px;
-        width: 100%;
-        border-radius: 10px;
-        
-    }
-
-    .left {
-        margin-right: 20px;
-        img {
-            width: 250px;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 10px;
-            display: block;
-
-        }
-    }
-
-    .centre{
-        
-        .top{
-            
-            .sale{
-                margin-top: 5px;
-                color: grey;
-            }
-
-            h3{
-                margin-top: 5px;
-                color: rgb(70, 70, 236);
-            }
-
-            h4{
-                margin-top: 5px;
-                font-size: 22px;
-            }
-        }
-
-        .bottom{
-            p{
-                margin-top: 70px;
-                color: grey;
-            }
-        }
-    }
-
-    .right{
-        .top{
-            
+        a img {
+            max-width: 30px;
+            width: 100%;
         }
     }
 }

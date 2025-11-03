@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/detail.css' %}">
+</head>
+<body>
+    <div class="car_card">
+        <img class="pic" src="{{ cars.picture.url }}" alt="">
+        <div class="title">
+            <div class="name">
+                <div class="left">
+                    <h2>{{ cars.name }}</h2>
+                    <h1>{{ cars.price }}$</h2>
+                </div>
+                <div class="right">
+                    <a href="">Купить</a>
+                </div>
+            </div>
+            <div class="detail">
+                <div class="detail1">
+                    <p>Марка: {{ cars.brand.name }}</p>
+                    <p>Модель: {{ cars.model }}</p>
+                    <p>Кузов: {{ cars.body.name }}</p>
+                    <p>Цвет: {{ cars.color }}</p>   
+                    <p>Кол-во мест: {{ cars.seats }}</p>
+                </div>
+                <div class="detail2">
+                    <p>Продажа: {{ cars.sale.name }}</p>
+                    <p>Аренда: {{ cars.rent.name }}</p>
+                    <p>Коробка передач: {{ cars.transmission.name }}</p>
+                    <p>Год: {{ cars.year }}</p>
+                </div>
+            </div>
+        </div>
+        <p class="description">{{ cars.description }}</p>
+        <div class="bottom">
+            <div class="date">
+                <p class="join_date">{{ cars.join_date }}</p>
+            </div>
+            <div class="ud">
+                <a href="{% url 'update' cars.pk %}"><img src="{% static 'images/pencil (1).svg' %}" alt=""></a>
+                <a href="{% url 'delete' cars.pk %}"><img src="{% static 'images/trash-2.svg' %}" alt=""></a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

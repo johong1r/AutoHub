@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
 </head>
 <body>
+    
     <header>
         <div class="headerr">
             <div class="right">
@@ -17,14 +18,20 @@
                 <a href="">Для бизнеса</a>
             </div>
             <div class="left">
-                <a href="">Вход</a>
-                <a href="">Регистрация</a>
-                <a class="btn" href="">Разместить обьявление</a>
+                <a href="{% url 'login' %}">Вход</a>
+                <a href="{% url 'register' %}">Регистрация</a>
+                <a class="btn" href="{% url 'create' %}">Разместить обьявление</a>
             </div>
         </div>
     </header>
 
         <section class="firstSec">
+            <div class="choose">
+                <select class="filter-select">
+                <option>Все марки</option>
+                </select>
+            </div>
+
             <div class="search1">
                 <form action="{% url 'home' %}" method="GET">
                     <input type="text" placeholder="Поиск машин" name="search" value="{{ search }}">
@@ -35,36 +42,139 @@
             </div>
         </section>
 
+        <div class="container">
+
     <div class="cars_list">
+        <div class="filter">
+            <div class="filter-container">
+                {% comment %} <div class="filter-section">
+                    <label>Состояние</label>
+                    <select class="filter-select">
+                    <option>Любое</option>
+                    <option>Новое</option>
+                    <option>Б/у</option>
+                    </select>
+                </div> {% endcomment %}
+
+                <div class="filter-section">
+                    <label>Модель (1)</label>
+                    <select class="filter-select">
+                    <option>Все модели</option>
+                    </select>
+                </div>
+
+                <div class="filter-section">
+                    <label>Местоположение</label>
+                    <select class="filter-select">
+                    <option>Все регионы</option>
+                    </select>
+                </div>
+
+                <div class="filter-section">
+                    <label>Страна учета</label>
+                    <select class="filter-select">
+                    <option>Все страны</option>
+                    </select>
+                </div>
+
+                <div class="filter-section">
+                    <div class="price-currency">
+                    <span>Цена</span>
+                    <div class="currency-switcher">
+                        <button class="currency">KGS</button>
+                        <button class="currency">USD</button>
+                    </div>
+                    </div>
+                    <div class="range-inputs">
+                    <input type="number" placeholder="Цена от">
+                    <input type="number" placeholder="Цена до">
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <label>Год</label>
+                    <select class="filter-select">
+                    <option>Любой год</option>
+                    </select>
+                </div>
+                {% comment %} 
+                <div class="filter-section">
+                    <label>Пробег (км.)</label>
+                    <div class="range-inputs">
+                    <input type="number" placeholder="Пробег от">
+                    <input type="number" placeholder="Пробег по">
+                    </div>
+                </div> {% endcomment %}
+
+                <div class="filter-actions">
+                    <button class="show-btn">Показать (1)</button>
+                    <button class="reset-btn">Сбросить все фильтры</button>
+                </div>
+                </div>
+        </div>
+
+        <div class="car_list1">
         {% for car in cars %}
             <div class="car_card">
                 <div class="left">
-                    <img src="{{ car.picture.url }}" alt="">
+                    {% if car.picture %}
+                        <img src="{{ car.picture.url }}" alt="{{ car.name }}">
+                    {% else %}
+                        <img src="{% static 'img/no-photo.png' %}" alt="Нет фото">
+                    {% endif %}
                 </div>
-                <div class="centre">
-                    <div class="top">
-                        <p class="sale">{{ car.sale.name }}</p>
-                        <h3>{{ car.name }}</h3>
-                        <h4>{{ car.price }} $</h4>
+                <div class="title">
+                    <div class="centre">
+                        <div class="top">
+                            <p class="sale">{{ car.sale.name }}</p>
+                            <a href="{% url 'detail' car.pk %}"><h3>{{ car.name }}</h3></a>
+                            <h4>{{ car.price }} $</h4>
+                        </div>
+                        <div class="bottom">
+                            <p>{{ car.join_date }}</p>
+                        </div>
                     </div>
-                    <div class="bottom">
-                        <p>{{ car.join_date }}</p>
-                    </div>
-                </div>
-                <div class="right">
-                    <div class="top">
-                        <a href=""><img src="{% static 'images/heart (1).svg' %}" alt=""></a>
-                        <a href=""><img src="{% static 'images/mail (1).svg' %}" alt=""></a>
-                    </div>
-                    <div class="bottom">
-                        <a href=""><img src="{% static 'images/phone (1).svg' %}" alt=""></a>
+
+                    <div class="right">
+                        <div class="top">
+                            <a href=""><img src="{% static 'images/heart (1).svg' %}" alt=""></a>
+                            <a href=""><img src="{% static 'images/mail (1).svg' %}" alt=""></a>
+                        </div>
+                        <div class="bottom">
+                            <a href=""><img src="{% static 'images/phone (1).svg' %}" alt=""></a>
+                        </div>
                     </div>
                 </div>
             </div>
         {% empty %}
             <p>Ничего не найдено</p>
         {% endfor %}
+        </div>
     </div>
+    </div>
+
+
+    <footer>
+    <div class="footer">
+        <div class="footer-left">
+            <a class="logo" href=""><img src="{% static 'images/AutoHub.jpg' %}" alt="AutoHub"></a>
+            <p>© 2025 AutoHub. Все права защищены.</p>
+        </div>
+        <div class="footer-center">
+            <a href="">О нас</a>
+            <a href="">Контакты</a>
+            <a href="">Помощь</a>
+            <a href="">Для бизнеса</a>
+        </div>
+        <div class="footer-right">
+            <a class="btn" href="{% url 'create' %}">Разместить обьявление</a>
+            <a href=""><img src="{% static 'images/facebook.svg' %}" alt="Facebook"></a>
+            <a href=""><img src="{% static 'images/instagram.svg' %}" alt="Instagram"></a>
+            <a href=""><img src="{% static 'images/twitter.svg' %}" alt="Twitter"></a>
+        </div>
+    </div>
+</footer>
+
 
 </body>
 </html>

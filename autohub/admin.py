@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Cars, Sale, Rent, Transmission, Brand
+from .models import Cars, Sale, Rent, Transmission, Brand, Body
 
 
 @admin.register(Cars)
@@ -25,4 +25,9 @@ class TransmissionAdmin(admin.ModelAdmin):
 
 @admin.register(Brand)
 class BrandAdmin(admin.ModelAdmin):
+    list_display = ['name']
+
+
+@admin.register(Body)
+class BodyAdmin(admin.ModelAdmin):
     list_display = ['name']

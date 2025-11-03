@@ -7,7 +7,7 @@ class Cars(models.Model):
     brand = models.ForeignKey("Brand", on_delete=models.CASCADE, verbose_name='Марка')
     model = models.CharField(max_length=100, verbose_name="Модель")
     price = models.IntegerField(verbose_name="Цена")
-    body = models.CharField(max_length=100, verbose_name="Кузов")
+    body = models.ForeignKey("Body", on_delete=models.CASCADE, max_length=100, verbose_name="Кузов")
     color = models.CharField(max_length=100, verbose_name="Цвет")
     seats = models.PositiveIntegerField(verbose_name="Количество мест")
     sale = models.ForeignKey("Sale", on_delete=models.CASCADE, verbose_name='Покупка', null=True, blank=True)
@@ -64,6 +64,17 @@ class Brand(models.Model):
     class Meta:
         verbose_name = 'Марка'
         verbose_name_plural = 'Марки'
+
+    def __str__(self):
+        return f'{self.id} - {self.name}'
+
+
+class Body(models.Model):
+    name = models.CharField(max_length=100, verbose_name="Название")
+
+    class Meta:
+        verbose_name = 'Кузов'
+        verbose_name_plural = 'Кузовы'
 
     def __str__(self):
         return f'{self.id} - {self.name}'
