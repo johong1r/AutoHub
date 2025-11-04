@@ -26,6 +26,7 @@
      width: 100%;
      background-color: #2C3E50;
      z-index: 1000;
+     padding: 10px 0;
  }
 
 
@@ -84,12 +85,12 @@
 
  .firstSec {
      background-color: #dfdfdf;
-     padding: 20px;
+     padding: 15px;
      display: flex;
      align-items: center;
      justify-content: center;
      gap: 30px;
-     margin-top: -10px;
+    
 
      .choose {
          select {

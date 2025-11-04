@@ -46,71 +46,70 @@
 
     <div class="cars_list">
         <div class="filter">
-            <div class="filter-container">
-                {% comment %} <div class="filter-section">
-                    <label>Состояние</label>
-                    <select class="filter-select">
-                    <option>Любое</option>
-                    <option>Новое</option>
-                    <option>Б/у</option>
-                    </select>
-                </div> {% endcomment %}
-
+            <form method="get" class="filter-container">
                 <div class="filter-section">
-                    <label>Модель (1)</label>
-                    <select class="filter-select">
-                    <option>Все модели</option>
+                    <label>Модель</label>
+                    <select class="filter-select" name="model">
+                        <option value="">Все модели</option>
+                        {% for car in cars %}
+                            <option value="{{ car.model }}" {% if request.GET.model == car.model %}selected{% endif %}>
+                                {{ car.model }}
+                            </option>
+                        {% endfor %}
                     </select>
                 </div>
 
                 <div class="filter-section">
                     <label>Местоположение</label>
-                    <select class="filter-select">
-                    <option>Все регионы</option>
+                    <select class="filter-select" name="location">
+                        <option value="">Все регионы</option>
+                        <option value="Ош" {% if request.GET.location == 'Ош' %}selected{% endif %}>Ош</option>
+                        <option value="Бишкек" {% if request.GET.location == 'Бишкек' %}selected{% endif %}>Бишкек</option>
+                        <option value="Джалал-Абад" {% if request.GET.location == 'Джалал-Абад' %}selected{% endif %}>Джалал-Абад</option>
                     </select>
                 </div>
 
                 <div class="filter-section">
                     <label>Страна учета</label>
-                    <select class="filter-select">
-                    <option>Все страны</option>
+                    <select class="filter-select" name="country">
+                        <option value="">Все страны</option>
+                        <option value="Кыргызстан" {% if request.GET.country == 'Кыргызстан' %}selected{% endif %}>Кыргызстан</option>
+                        <option value="Япония" {% if request.GET.country == 'Япония' %}selected{% endif %}>Япония</option>
+                        <option value="Германия" {% if request.GET.country == 'Германия' %}selected{% endif %}>Германия</option>
                     </select>
                 </div>
 
                 <div class="filter-section">
                     <div class="price-currency">
-                    <span>Цена</span>
-                    <div class="currency-switcher">
-                        <button class="currency">KGS</button>
-                        <button class="currency">USD</button>
-                    </div>
+                        <span>Цена</span>
+                        <div class="currency-switcher">
+                            <button type="button" class="currency">KGS</button>
+                            <button type="button" class="currency">USD</button>
+                        </div>
                     </div>
                     <div class="range-inputs">
-                    <input type="number" placeholder="Цена от">
-                    <input type="number" placeholder="Цена до">
+                        <input type="number" name="min_price" placeholder="Цена от" value="{{ request.GET.min_price }}">
+                        <input type="number" name="max_price" placeholder="Цена до" value="{{ request.GET.max_price }}">
                     </div>
                 </div>
 
                 <div class="filter-section">
                     <label>Год</label>
-                    <select class="filter-select">
-                    <option>Любой год</option>
+                    <select class="filter-select" name="year">
+                        <option value="">Любой год</option>
+                        {% for year in years %}
+                            <option value="{{ year }}" {% if request.GET.year == year|stringformat:"s" %}selected{% endif %}>
+                                {{ year }}
+                            </option>
+                        {% endfor %}
                     </select>
                 </div>
-                {% comment %} 
-                <div class="filter-section">
-                    <label>Пробег (км.)</label>
-                    <div class="range-inputs">
-                    <input type="number" placeholder="Пробег от">
-                    <input type="number" placeholder="Пробег по">
-                    </div>
-                </div> {% endcomment %}
 
                 <div class="filter-actions">
-                    <button class="show-btn">Показать (1)</button>
-                    <button class="reset-btn">Сбросить все фильтры</button>
+                    <button type="submit" class="show-btn">Показать</button>
+                    <a href="{% url 'home' %}" class="reset-btn">Сбросить все фильтры</a>
                 </div>
-                </div>
+            </form>
         </div>
 
         <div class="car_list1">

@@ -15,12 +15,33 @@ class HomeTemplateView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        query = self.request.GET.get('search')
-        if query:
-            cars = Cars.objects.filter(name__icontains=query)
-        else:
-            cars = Cars.objects.all()
+
+        cars = Cars.objects.all()
+
+        model = self.request.GET.get('model')
+        location = self.request.GET.get('location')
+        country = self.request.GET.get('country')
+        min_price = self.request.GET.get('min_price')
+        max_price = self.request.GET.get('max_price')
+        year = self.request.GET.get('year')
+
+        if model:
+            cars = cars.filter(model__icontains=model)
+        if location:
+            cars = cars.filter(location__icontains=location)
+        if country:
+            cars = cars.filter(country__icontains=country)
+        if min_price:
+            cars = cars.filter(price__gte=min_price)
+        if max_price:
+            cars = cars.filter(price__lte=max_price)
+        if year:
+            cars = cars.filter(year=year)
+
+        years = Cars.objects.values_list('year', flat=True).distinct().order_by('-year')
+
         context['cars'] = cars
+        context['years'] = years
         context['title'] = 'Главная страница'
         return context
 
