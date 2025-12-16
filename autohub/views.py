@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
-from .models import Cars
+from .models import Cars, OrderItem, Order
 from django.views.generic import TemplateView, DetailView
 
 
@@ -46,20 +46,52 @@ class HomeTemplateView(TemplateView):
         return context
 
 
-# def home_view(request):
-#     search_query = request.GET.get('search', '') 
-#     if search_query:
-#         cars = Cars.objects.filter(
-#             Q(name__icontains=search_query) |
-#             Q(model__icontains=search_query) |
-#             Q(brand__name__icontains=search_query)
-#         )
-#     else:
-#         cars = Cars.objects.all()  
-    
-#     return render(request, 'homepage.html', {'cars': cars,
-#         'search': search_query})
-    
-    
+def add_to_cart_view(request, pk):
+    cars = get_object_or_404(Cars, pk=pk)
+    cart = request.session.get('cart', {})
+    cart_item = cart.get(str(pk), {'quantity': 0, 'name': cars.name, 'price': cars.price})
+    cart_item['quantity'] += 1
+    cart[str(pk)] = cart_item
+    request.session['cart'] = cart
+    return redirect('index')
 
 
+def cart_view(request):
+    cart = request.session.get('cart', {})
+    total_price = sum(item['price'] * item['quantity'] for item in cart.values())
+    return render(request, 'cart.html', {'cart': cart, 'total_price': total_price})
+
+
+def remove_from_cart_view(request, pk):
+    cart = request.session.get('cart', {})
+    if str(pk) in cart:
+        del cart[str(pk)]
+        request.session['cart'] = cart
+    return redirect('cart')
+
+
+def clear_cart_view(request):
+    request.session['cart'] = {}
+    return redirect('cart')
+
+
+def checkout_view(request):
+    cart = request.session.get('cart', {})
+    if not cart:
+        return redirect('cart')
+
+    order = Order.objects.create()
+    for pk, item in cart.items():
+        cars = get_object_or_404(Cars, pk=pk)
+        order_item = OrderItem.objects.create(cars=cars, quantity=item['quantity'])   
+        order.items.add(order_item)
+
+    order.save()
+    request.session['cart'] = {}
+    return render(request, 'checkout_success.html', {'order': order})
+
+
+def order_history_view(request):
+    orders = Order.objects.all().order_by('-created_at')
+    return render(request, 'order_history.html', {'orders': orders}) 
+ 

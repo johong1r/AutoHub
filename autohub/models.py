@@ -1,8 +1,12 @@
 from django.db import models
 
+from django_resized import ResizedImageField
+from accounts.models import User
+
 
 class Cars(models.Model):
-    picture = models.ImageField(null=True, blank=True, verbose_name='Фотография')
+    picture = ResizedImageField(size=[800, 600], crop=['middle', 'center'], upload_to='objects/', verbose_name='Изображение', 
+                              null=True, blank=True, quality=90)
     name = models.CharField(max_length=100, verbose_name="Название")
     brand = models.ForeignKey("Brand", on_delete=models.CASCADE, verbose_name='Марка')
     model = models.CharField(max_length=100, verbose_name="Модель")
@@ -16,6 +20,7 @@ class Cars(models.Model):
     year = models.IntegerField(verbose_name="Год")
     description = models.CharField(max_length=1000, verbose_name="Описание")
     join_date = models.DateField(verbose_name='дата присоединения', auto_now_add=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='users', verbose_name='Пользователь')
 
     class Meta:
         verbose_name = 'Машина'
@@ -60,6 +65,8 @@ class Transmission(models.Model):
 
 class Brand(models.Model):
     name = models.CharField(max_length=100, verbose_name="Название")
+    logo = ResizedImageField(size=[800, 600], crop=['middle', 'center'], upload_to='objects/', verbose_name='Изображение', 
+                              null=True, blank=True, quality=90)
 
     class Meta:
         verbose_name = 'Марка'
@@ -78,3 +85,29 @@ class Body(models.Model):
 
     def __str__(self):
         return f'{self.id} - {self.name}'
+    
+
+class OrderItem(models.Model):
+    cars = models.ForeignKey(Cars, verbose_name='Товар', on_delete=models.CASCADE)
+    quantity = models.IntegerField(verbose_name='Количество', default=1)
+    price = models.IntegerField(verbose_name='Цена')
+    cart = models.ForeignKey('Order', verbose_name='Корзина', on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Элемент заказа'
+        verbose_name_plural = 'Элементы заказа'
+
+    def __str__(self):
+        return f'OrderItem: {self.goods.name} (x{self.quantity})'
+    
+
+class Order(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания заказа')
+    user = models.ForeignKey(OrderItem, verbose_name='Пользователь', on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
+
+    def __str__(self):
+        return f'Order #{self.id} - {self.items}'

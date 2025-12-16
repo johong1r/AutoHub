@@ -39,6 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'autohub',
     'custom_admin',
+    'accounts',
+    'django_resized',
+    'rest_framework',
+    'drf_yasg',
+    'phonenumber_field',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
@@ -111,6 +117,16 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 12
+}
+
+
+AUTH_USER_MODEL = 'accounts.User'
+
+
 
 
 # Static files (CSS, JavaScript, Images)
