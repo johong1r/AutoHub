@@ -26,8 +26,6 @@ router.register(r'body_create', body_create, basename='body-create')
 router.register(r'transmission_create', transmission_create, basename='transmission-create')
 router.register(r'sale_create', sale_create, basename='sale-create')
 router.register(r'rent_create', rent_create, basename='rent-create')
-router.register(r'cars/<int:pk>/', CarDetailAPIView, basename='cars-detail')
-router.register(r'cars/', CarListCreateAPIView, basename='cars-list')
 
 
 
