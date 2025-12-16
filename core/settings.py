@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-!49!j1=egq-ea)5g!$on+@2p)t*jj11cs36pj5zpq%0gh@z9(s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['autohub.pythonanywhere.com']
 
 
 # Application definition
