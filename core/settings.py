@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-!49!j1=egq-ea)5g!$on+@2p)t*jj11cs36pj5zpq%0gh@z9(s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['autohub.pythonanywhere.com']
+ALLOWED_HOSTS = ['autohub.pythonanywhere.com', '127.0.0.1']
 
 
 # Application definition
@@ -119,10 +119,24 @@ USE_I18N = True
 USE_TZ = True
 
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 12
-}
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
 
+    'DEFAULT_PAGINATION_CLASS':'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE':12,
+
+    'DEFAULT_FILTER_BACKENDS':[
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ],
+    
+     'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ],
+}
 
 AUTH_USER_MODEL = 'accounts.User'
 
@@ -149,3 +163,17 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_POST = 587
+
+
+EMAIL_HOST_USER = 'johongir260908@gmail.com'
+EMAIL_HOST_PASSWORD = 'qsbflqcpzyzgllnam'
+
+DEFAULT_FROM_EMAIL = 'johongir260908@gmail.com'

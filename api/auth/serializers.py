@@ -1,8 +1,10 @@
+from django.conf import settings
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from django.contrib.auth.password_validation import validate_password
 from rest_framework.authtoken.models import Token
 from accounts.models import User
+from django.contrib.auth import get_user_model
 
 
 class LoginSerializer(serializers.Serializer):
@@ -82,3 +84,41 @@ class GenericChangePasswordSerializer(serializers.Serializer):
 class DeactivateAccountSerializer(serializers.Serializer):
     confirm = serializers.BooleanField()
     
+
+class SendMailSerializer(serializers.Serializer):
+    to_email = serializers.EmailField()
+    text = serializers.CharField()
+
+    def create(self, validated_data):
+        from django.core.mail import send_mail
+        send_mail(
+            subject='AutoHub Notification',
+            message=validated_data['text'],
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[validated_data['to_email']],
+            fail_silently=False,
+        )
+        return validated_data
+    
+    
+User = get_user_model()
+
+
+class ResetPasswordRequestSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+
+    def validate_email(self, email):
+        if not User.objects.filter(email=email).exists():
+            raise serializers.ValidationError('User not found')
+        return email
+    
+
+class ResetPasswordVerifySerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    code = serializers.CharField(max_length=4)
+
+
+class ResetPasswordConfirmSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    code = serializers.CharField(max_length=4)
+    new_password = serializers.CharField(min_length=8)

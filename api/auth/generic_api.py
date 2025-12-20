@@ -3,7 +3,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from accounts.models import User
 from .serializers import RegisterSerializer, LoginSerializer, ProfileSerializer, DeactivateAccountSerializer, GenericChangePasswordSerializer
 from autohub.models import Cars
-from api.main.serializers import ApartmentSerializer
+from api.autohub.serializer import CarSerializer
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 
@@ -15,8 +15,8 @@ class RegisterView(CreateAPIView):
 
 
 class ApartmentListView(ListAPIView):
-    queryset = Apartment.objects.all()
-    serializer_class = ApartmentSerializer
+    queryset = Cars.objects.all()
+    serializer_class = CarSerializer
     permission_classes = (AllowAny,)
 
 

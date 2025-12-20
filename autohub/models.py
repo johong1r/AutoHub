@@ -1,7 +1,6 @@
 from django.db import models
-
+from django.conf import settings
 from django_resized import ResizedImageField
-from accounts.models import User
 
 
 class Cars(models.Model):
@@ -20,7 +19,7 @@ class Cars(models.Model):
     year = models.IntegerField(verbose_name="Год")
     description = models.CharField(max_length=1000, verbose_name="Описание")
     join_date = models.DateField(verbose_name='дата присоединения', auto_now_add=True)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='users', verbose_name='Пользователь')
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='users', verbose_name='Пользователь')
 
     class Meta:
         verbose_name = 'Машина'
