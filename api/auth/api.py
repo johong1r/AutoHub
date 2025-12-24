@@ -12,83 +12,79 @@ from .serializers import (
 )
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.authtoken.models import Token
-from accounts.models import PasswordResetCode
-from django.contrib.auth import get_user_model
+from accounts.models import PasswordResetCode, User
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
 
 
-User = get_user_model()
+# @api_view(['GET', 'POST'])
+# @permission_classes([AllowAny])
+# @renderer_classes([BrowsableAPIRenderer, JSONRenderer])
+# def reset_password_request(request):
+#     serializer = ResetPasswordRequestSerializer(data=request.data)
+#     serializer.is_valid(raise_exception=True)
+
+#     user = User.objects.get(email=serializer.validated_data['email'])
+#     reset_code = PasswordResetCode.create_code(user)
+
+#     print('RESET CODE:', reset_code.code)
+
+#     return Response({'detail': 'Reset code sent'}, status=200)
 
 
-@api_view(['GET', 'POST'])
-@permission_classes([AllowAny])
-@renderer_classes([BrowsableAPIRenderer, JSONRenderer])
-def reset_password_request(request):
-    serializer = ResetPasswordRequestSerializer(data=request.data)
-    serializer.is_valid(raise_exception=True)
+# @api_view(['POST'])
+# @permission_classes([AllowAny])
+# @renderer_classes([BrowsableAPIRenderer, JSONRenderer])
+# def reset_password_verify(request):
+#     serializer = ResetPasswordVerifySerializer(data=request.data)
+#     serializer.is_valid(raise_exception=True)
 
-    user = User.objects.get(email=serializer.validated_data['email'])
-    reset_code = PasswordResetCode.create_code(user)
+#     user = User.objects.get(email=serializer.validated_data['email'])
+#     code = serializer.validated_data['code']
 
-    print('RESET CODE:', reset_code.code)
+#     reset = PasswordResetCode.objects.filter(
+#         user=user,
+#         code=code,
+#         is_used=False
+#     ).first()
 
-    return Response({'detail': 'Reset code sent'}, status=200)
-
-
-@api_view(['POST'])
-@permission_classes([AllowAny])
-@renderer_classes([BrowsableAPIRenderer, JSONRenderer])
-def reset_password_verify(request):
-    serializer = ResetPasswordVerifySerializer(data=request.data)
-    serializer.is_valid(raise_exception=True)
-
-    user = User.objects.get(email=serializer.validated_data['email'])
-    code = serializer.validated_data['code']
-
-    reset = PasswordResetCode.objects.filter(
-        user=user,
-        code=code,
-        is_used=False
-    ).first()
-
-    if not reset or reset.is_expired():
-        return Response(
-            {'detail': 'Invalid or expired code'},
-            status=400
-        )
+#     if not reset or reset.is_expired():
+#         return Response(
+#             {'detail': 'Invalid or expired code'},
+#             status=400
+#         )
     
-    return Response({'detail': 'Code is valide'}, status=200)
+#     return Response({'detail': 'Code is valide'}, status=200)
 
 
-@api_view(['POST'])
-@permission_classes([AllowAny])
-@renderer_classes([BrowsableAPIRenderer, JSONRenderer])
-def reset_password_confirm(request):
-    serializer = ResetPasswordConfirmSerializer(data=request.data)
-    serializer.is_valid(raise_exception=True)
+# @api_view(['POST'])
+# @permission_classes([AllowAny])
+# @renderer_classes([BrowsableAPIRenderer, JSONRenderer])
+# def reset_password_confirm(request):
+#     serializer = ResetPasswordConfirmSerializer(data=request.data)
+#     serializer.is_valid(raise_exception=True)
 
-    user = User.objects.get(email=serializer.validated_data['email'])
-    code = serializer.validated_data['code']
+#     user = User.objects.get(email=serializer.validated_data['email'])
+#     code = serializer.validated_data['code']
 
-    reset = PasswordResetCode.objects.filter(
-        user=user,
-        code=code,
-        is_used=False
-    ).first()
+#     reset = PasswordResetCode.objects.filter(
+#         user=user,
+#         code=code,
+#         is_used=False
+#     ).first()
 
-    if not reset or reset.is_expired():
-        return Response(
-            {'detail': 'Invalid or expired code'},
-            status=400
-        )
+#     if not reset or reset.is_expired():
+#         return Response(
+#             {'detail': 'Invalid or expired code'},
+#             status=400
+#         )
     
-    user.set_password(serializer.validated_data['new_password'])
-    user.save()
+#     user.set_password(serializer.validated_data['new_password'])
+#     user.save()
 
-    reset.is_used = True
-    reset.save()
+#     reset.is_used = True
+#     reset.save()
     
-    return Response({'detail': 'Password changed'}, status=200)
+#     return Response({'detail': 'Password changed'}, status=200)
 
 
 @api_view(['POST'])

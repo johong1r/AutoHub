@@ -100,17 +100,15 @@ class SendMailSerializer(serializers.Serializer):
         )
         return validated_data
     
-    
-User = get_user_model()
 
 
 class ResetPasswordRequestSerializer(serializers.Serializer):
     email = serializers.EmailField()
 
-    def validate_email(self, email):
-        if not User.objects.filter(email=email).exists():
-            raise serializers.ValidationError('User not found')
-        return email
+    # def validate_email(self, email):
+    #     if not User.objects.filter(email=email).exists():
+    #         raise serializers.ValidationError('User not found')
+    #     return email
     
 
 class ResetPasswordVerifySerializer(serializers.Serializer):
